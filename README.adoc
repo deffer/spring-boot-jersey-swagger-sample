@@ -1,0 +1,1 @@
+Swagger core hooked up to springboot jersey app
