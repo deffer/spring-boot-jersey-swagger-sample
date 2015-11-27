@@ -19,9 +19,11 @@ package sample.jersey;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+// @ApplicationPath("/jersey")
 public class JerseyConfig extends ResourceConfig {
 
 	public JerseyConfig() {
@@ -29,6 +31,9 @@ public class JerseyConfig extends ResourceConfig {
 		register(ReverseEndpoint.class);
 		register(io.swagger.jaxrs.listing.ApiListingResource.class);
 		register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+		property(ServletProperties.FILTER_FORWARD_ON_404, true);
 	}
+
+
 
 }

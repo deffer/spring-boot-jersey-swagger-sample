@@ -19,14 +19,28 @@ package sample.jersey;
 import io.swagger.jaxrs.config.BeanConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 
+// @SpringBootApplication annotation is a convenience annotation that is equivalent to declaring
+// @Configuration,
+// @EnableAutoConfiguration and
+// @ComponentScan and it is new to Spring Boot 1.2.
 @SpringBootApplication
 public class SampleJerseyApplication extends SpringBootServletInitializer {
 
 	//https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-Jersey-2.X-Project-Setup-1.5#using-the-application-class
 	// http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-jersey
 	// http://stackoverflow.com/questions/20915528/how-can-i-register-a-secondary-servlet-with-spring-boot
+
+
+	@Bean
+	public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
+		ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet);
+		registration.addUrlMappings("/whatever/*", "/whatever2/*", "/webjars/*");
+		return registration;
+	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
